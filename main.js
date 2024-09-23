@@ -1,14 +1,3 @@
-/*
-
-With that in mind, write functions that accomplish the following:
-Take an array of numbers and return the sum.
-Take an array of numbers and return the average.
-Take an array of strings and return the longest string.
-Take an array of strings, and a number and return an array of the strings that are longer than the given number. 
-For example, stringsLongerThan(['say', 'hello', 'in', 'the', 'morning'], 3); would return ["hello", "morning"].
-Take a number, n, and print every number between 1 and n without using loops. Use recursion.
-
-*/
 
 const sumArray = (arr) => {
   let total = 0;
@@ -44,18 +33,73 @@ const stringsLongerThan = (arr, n) => {
 }
 
 const printNumbers = (n) => {
-  if (n === 1) {
-    console.log(1);
+  let current = 1;
+  if (current > n) {
     return;
   } else {
-    console.log(n);
-    printNumbers(n - 1);
+    console.log(current);
+    current++;
+    printNumbers(n);
   }
 }
 
 
-console.log(sumArray([1, 2, 3, 4, 5]));
-console.log(avgArray([1, 2, 3, 4, 5]));
-console.log(longestString(['harley quinn', 'superman', 'lex luthor', 'the flash', 'batman', 'green lantern']));
-console.log(stringsLongerThan(['coffee', 'pepsi', 'tea', 'chai latte', 'slurpee'], 5));
-printNumbers(10);
+// console.log(sumArray([1, 2, 3, 4, 5]));
+// console.log(avgArray([1, 2, 3, 4, 5]));
+// console.log(longestString(['harley quinn', 'superman', 'lex luthor', 'the flash', 'batman', 'green lantern']));
+// console.log(stringsLongerThan(['coffee', 'pepsi', 'tea', 'chai latte', 'slurpee'], 5));
+// printNumbers(10);
+
+// Part 2
+
+/*
+When functions are built into objects, like Arrays, they are referred to as “methods” of those objects. Many methods, including Array methods, require “callback functions” to determine their behavior.
+For the tasks below, use the following data to test your work:
+[{ id: "42", name: "Bruce", occupation: "Knight", age: "41" },
+ { id: "48", name: "Barry", occupation: "Runner", age: "25" },
+ { id: "57", name: "Bob", occupation: "Fry Cook", age: "19" },
+ { id: "63", name: "Blaine", occupation: "Quiz Master", age: "58" },
+ { id: "7", name: "Bilbo", occupation: "None", age: "111" }]
+Use callback functions alongside Array methods to accomplish the following:
+Sort the array by age.
+Filter the array to remove entries with an age greater than 50.
+Map the array to change the “occupation” key to “job” and increment every age by 1.
+Use the reduce method to calculate the sum of the ages.
+Then use the result to calculate the average age.
+*/
+
+const data = [
+  { id: "42", name: "Bruce", occupation: "Knight", age: "41" },
+  { id: "48", name: "Barry", occupation: "Runner", age: "25" },
+  { id: "57", name: "Bob", occupation: "Fry Cook", age: "19" },
+  { id: "63", name: "Blaine", occupation: "Quiz Master", age: "58" },
+  { id: "7", name: "Bilbo", occupation: "None", age: "111" }
+];
+
+
+const sortedData = data.sort((a, b) => {
+  return parseInt(a.age) - parseInt(b.age);
+});
+
+console.log("Sorted Data:", sortedData);
+
+const filteredData = data.filter(object => {
+  return parseInt(object.age) <= 50;
+});
+
+console.log("Filtered Data:", filteredData);
+
+const occToJob = data.map(object => {
+  // Need to change occupation key to job and increment age by 1, but keep age as a string somehow.
+  object["job"] = object["occupation"];
+  object["age"] = (parseInt(object["age"]) + 1).toString();
+  return object;
+});
+
+console.log("Occ to job:", occToJob);
+
+const AverageOfAges = data.reduce((accumulator, currentValue) => {
+  return accumulator + parseInt(currentValue.age)
+}, 0) / data.length;
+
+console.log("Average Age:", AverageOfAges);
